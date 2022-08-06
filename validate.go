@@ -32,12 +32,10 @@ func (v *Validate) SetAliasName(aliasName string) {
 }
 
 func (v *Validate) Check(st interface{}) error {
-	typ := reflect.TypeOf(st)
-	val := reflect.ValueOf(&st)
-	num := typ.NumField()
-	t := val.Elem().Type()
+	val := reflect.ValueOf(st)
+	num := val.NumField()
 	for i := 0; i < num; i++ {
-		rules := t.Field(i).Tag.Get("validate")
+		rules := val.Type().Field(i).Tag.Get("validate")
 		fmt.Println(rules)
 	}
 	return nil
