@@ -1,5 +1,10 @@
 package go_validate
 
+import (
+	"errors"
+	"fmt"
+)
+
 const (
 	requireMessage   = "%s不能为空"
 	integerMessage   = "%s必须是整数"
@@ -13,3 +18,25 @@ const (
 	idCardMessage    = "%s不符合指定规则"
 	zipMessage       = "%s不是正确的邮编号码"
 )
+
+var messages = map[string]string{
+	"require":   requireMessage,
+	"integer":   integerMessage,
+	"float":     floatMessage,
+	"number":    numberMessage,
+	"email":     emailMessage,
+	"alpha":     alphaMessage,
+	"alphaNum":  alphaNumMessage,
+	"alphaDash": alphaDashMessage,
+	"mobile":    mobileMessage,
+	"idCard":    idCardMessage,
+	"zip":       zipMessage,
+}
+
+func GetErrorMessage(title, key string) error {
+	msg, ok := messages[key]
+	if !ok {
+		return errors.New("参数错误")
+	}
+	return errors.New(fmt.Sprintf(msg, title))
+}

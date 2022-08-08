@@ -25,18 +25,8 @@ func IsRequire(fl reflect.Value) bool {
 	switch fl.Kind() {
 	case reflect.String:
 		return len(strings.TrimSpace(fl.String())) > 0
-	case reflect.Bool:
-		return !fl.Bool()
-	case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
-		return fl.Int() == 0
-	case reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64, reflect.Uintptr:
-		return fl.Uint() == 0
-	case reflect.Float32, reflect.Float64:
-		return fl.Float() == 0
-	case reflect.Interface, reflect.Ptr:
-		return fl.IsNil()
-	case reflect.Chan, reflect.Map, reflect.Slice, reflect.Array:
-		return fl.Len() > 0
+	case reflect.Slice, reflect.Map, reflect.Ptr, reflect.Interface, reflect.Chan, reflect.Func:
+		return !fl.IsNil()
 	default:
 		return fl.IsValid() && fl.Interface() != reflect.Zero(fl.Type()).Interface()
 	}
