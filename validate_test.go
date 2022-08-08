@@ -16,6 +16,6 @@ func TestValidate_CheckStruct(t *testing.T) {
 	}
 	err := validate.CheckStruct(invalid)
 	if !reflect.DeepEqual(err, nil) {
-		t.Errorf("test failed\n")
+		t.Errorf("test failed：err is %v\n", err)
 	}
 }
